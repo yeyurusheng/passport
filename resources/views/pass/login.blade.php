@@ -1,6 +1,6 @@
 @extends('layouts.bst')
 @section('content')
-        <!doctype html>
+<!doctype html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">

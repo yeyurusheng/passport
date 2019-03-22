@@ -27,8 +27,11 @@ class PassController extends Controller
         $email = $request->input('email');
         $recurl = urldecode($request->input('recurl') ?? env('PASS_LOGIN'));
         if($pwd2!=$pwd1){
-            echo '密码与确认密码不一致';
-            header('refresh:2,/register');
+            $response=[
+                'msg'=>'密码与确认密码不一致'
+            ];
+            //echo '密码与确认密码不一致';
+            //header('refresh:2,/register');
         }
         $pwd=password_hash($pwd1,PASSWORD_BCRYPT);
         $data=[
@@ -42,19 +45,31 @@ class PassController extends Controller
         $where=['u_name'=>$u_name];
         $res = UserModel::where($where)->first();
         if($res){
-            echo '账号已存在';
+            $response = [
+                'error'=>'0',
+                'msg' => '账号已存在'
+            ];
             header('refresh:2,/register');
         }else{
             $list = UserModel::insert($data);
             if($list){
-                echo '注册成功';
-                setcookie('list',$list,time()+86400,'/','shop.com',false,true);
-                header('refresh:2,/login');
+                $response = [
+                    'error'=>'0',
+                    'msg' => '注册成功'
+                ];
+                //echo '注册成功';
+                setcookie('list',$list,time()+86400,'/','tactshan.com',false,true);
+                //header('refresh:2,/login');
             }else{
-                echo '注册失败';
-                header('refresh:2,/register');
+                $response = [
+                    'error'=>'40003',
+                    'msg' => '注册失败'
+                ];
+                //echo '注册失败';
+                //header('refresh:2,/register');
             }
         }
+        return $response;
     }
 
     /** 登录页面 */
@@ -77,8 +92,8 @@ class PassController extends Controller
         }
         if(password_verify($pwd,$add->pwd)){
             $token = substr(md5(time().mt_rand(1,99999)),10,10);
-            setcookie('uid',$add->uid,time()+86400,'/','shop.com',false,true);
-            setcookie('token',$token,time()+86400,'/','shop.com',false,true);
+            setcookie('uid',$add->uid,time()+86400,'/','tactshan.com',false,true);
+            setcookie('token',$token,time()+86400,'/','tactshan.com',false,true);
             $request->session()->put('u_token',$token);
             $request->session()->put('uid',$add->uid);
             //存数据到redis
