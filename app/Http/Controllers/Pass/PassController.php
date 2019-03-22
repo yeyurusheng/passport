@@ -69,6 +69,7 @@ class PassController extends Controller
                 //header('refresh:2,/register');
             }
         }
+        $response = json_encode($response);
         return $response;
     }
 
@@ -88,7 +89,10 @@ class PassController extends Controller
         $recurl = urldecode($request->input('recurl') ?? env('PASS_LOGIN'));
         $add=UserModel::where(['u_name'=>$u_name])->first();
         if(empty($add)){
-            die('账号不存在');
+            $response = [
+                'error'=>'40003',
+                'msg' => '账号不存在'
+            ];
         }
         if(password_verify($pwd,$add->pwd)){
             $token = substr(md5(time().mt_rand(1,99999)),10,10);
@@ -100,11 +104,19 @@ class PassController extends Controller
             $redis_key = "redis:login:token:".$add->uid;
             Redis::set($redis_key,$token);
             Redis::expire($redis_key,7200);
-            echo '登录成功';
-            header('refresh:2;url='.$recurl);
+            $response = [
+                'error'=>'0',
+                'msg' => '登陆成功'
+            ];
+            //header('refresh:2;url='.$recurl);
         }else{
-            echo '密码错误';
+            $response = [
+                'error'=>'4003',
+                'msg' => '密码错误'
+            ];
         };
+        $response = json_encode($response);
+        return $response;
     }
 
 }
