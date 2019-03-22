@@ -46,16 +46,16 @@ class PassController extends Controller
         $res = UserModel::where($where)->first();
         if($res){
             $response = [
-                'error'=>'0',
+                'error'=>'40003',
                 'msg' => '账号已存在'
             ];
-            header('refresh:2,/register');
+            //header('refresh:2,/register');
         }else{
             $list = UserModel::insert($data);
             if($list){
                 $response = [
                     'error'=>'0',
-                    'msg' => '注册成功'
+                    'msg' => 'register success'
                 ];
                 //echo '注册成功';
                 setcookie('list',$list,time()+86400,'/','tactshan.com',false,true);
@@ -69,7 +69,7 @@ class PassController extends Controller
                 //header('refresh:2,/register');
             }
         }
-        //$response = json_encode($response);
+        $response = json_encode($response);
         return $response;
     }
 
@@ -106,17 +106,18 @@ class PassController extends Controller
             Redis::expire($redis_key,7200);
             $response = [
                 'error'=>'0',
-                'msg' => '登陆成功',
+                'msg' => 'success',
                 'token' => $token,
             ];
             //header('refresh:2;url='.$recurl);
         }else{
             $response = [
-                'error'=>'4003',
-                'msg' => '密码错误',
+                'error'=>'40003',
+                'msg' => 'password fail',
             ];
         };
         $response = json_encode($response);
+        //var_dump($response);exit;
         return $response;
     }
 
