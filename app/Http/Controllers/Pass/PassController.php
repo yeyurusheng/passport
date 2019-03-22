@@ -69,7 +69,7 @@ class PassController extends Controller
                 //header('refresh:2,/register');
             }
         }
-        $response = json_encode($response);
+        //$response = json_encode($response);
         return $response;
     }
 
@@ -106,13 +106,14 @@ class PassController extends Controller
             Redis::expire($redis_key,7200);
             $response = [
                 'error'=>'0',
-                'msg' => '登陆成功'
+                'msg' => '登陆成功',
+                'token' => $token,
             ];
             //header('refresh:2;url='.$recurl);
         }else{
             $response = [
                 'error'=>'4003',
-                'msg' => '密码错误'
+                'msg' => '密码错误',
             ];
         };
         $response = json_encode($response);
