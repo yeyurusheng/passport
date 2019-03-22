@@ -10,7 +10,7 @@
     <title>用户登录</title>
 </head>
 <body>
-<form action="dologin" method="POST">
+<form action="pcdologin" method="POST">
     {{csrf_field()}}
     <h1>用户登录</h1>
     <div class="form-group" style="width:400px;">

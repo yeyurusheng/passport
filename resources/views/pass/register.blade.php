@@ -10,7 +10,7 @@
     <title>用户注册</title>
 </head>
 <body>
-<form action="/doreg" method="post">
+<form action="/pcdoreg" method="post">
     {{csrf_field()}}{{--关闭防护机制--}}
     <h1>用户注册</h1>
     <table>
