@@ -23,7 +23,7 @@ Route::post('/doreg','Pass\PassController@doreg');
 Route::get('/login','Pass\PassController@login');
 Route::post('/dologin','Pass\PassController@dologin');
 //退出
-Route::get('/quit','Pass\PassController@quit');
+Route::post('/quit','Pass\PassController@quit');
 
 
 
