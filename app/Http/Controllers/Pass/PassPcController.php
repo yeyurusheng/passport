@@ -94,9 +94,9 @@ class PassPcController extends Controller
         };
     }
     public function quit(){
-        $uid = $_COOKIE['uid'];
-        $redis_key = "redis:login:token:".$uid;
-        Redis::del($redis_key);
+//        $uid = $_COOKIE['uid'];
+//        $redis_key = "redis:login:token:".$uid;
+//        Redis::del($redis_key);
         setcookie('uid','',time()-1,'/','tactshan.com',false,true);
         $a = setcookie('token','',time()-1,'/','tactshan.com',false,true);
         if($a){
