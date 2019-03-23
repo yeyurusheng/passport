@@ -93,4 +93,20 @@ class PassPcController extends Controller
             echo '密码错误';
         };
     }
+    public function quit(){
+        $uid = $_COOKIE['uid'];
+        $redis_key = "redis:login:token:".$uid;
+        Redis::del($redis_key);
+        setcookie('uid','',time()-1,'/','tactshan.com',false,true);
+        $a = setcookie('token','',time()-1,'/','tactshan.com',false,true);
+        if($a){
+            $response = [
+                'error' => 0,
+                'msg'   => 'quit success'
+            ];
+        }
+        $response = json_encode($response);
+        header("refresh:2,./pclogin");
+        return $response;
+    }
 }

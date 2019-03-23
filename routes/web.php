@@ -28,5 +28,8 @@ Route::post('/pcdoreg','Pass\PassPcController@doreg');
 //登录
 Route::get('/pclogin','Pass\PassPcController@login');
 Route::post('/pcdologin','Pass\PassPcController@dologin');
+//退出
+Route::get('/quit','Pass\PassPcController@quit');
+
 
 
