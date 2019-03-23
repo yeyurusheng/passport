@@ -106,7 +106,7 @@ class PassPcController extends Controller
             ];
         }
         $response = json_encode($response);
-        header("refresh:2,./pclogin");
+        //header("refresh:2,./pclogin");
         return $response;
     }
 }
